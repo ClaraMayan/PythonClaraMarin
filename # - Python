@@ -1,0 +1,150 @@
+#1. Crear un menu iterativo con las siguientes opciones 
+#2. opcion 1 'Saludar' , pedir datos personales
+#3. opcion 2 Realizar una operacion matematica pedir 2 numeros 
+#4. opcion 3 Agregar a lista un diccionario que tenga (nombre ,edad ,correo,cursos). Los cursos sera a su vez una lista de diccionario que tendra las llaves de nombre de curso y listado de notas
+#5. opcion 4 calcular el promedio de las notas y agregar las notas finales a una lista  
+#6. opcion 5 mostrar listado de alumnos aprobados 
+#7. opcion 6 mostrar listado de alumnos desaprobados
+#8. opcion 7 Generar una funcion rango hasta un numero grande (10^10) con un step y agregar a una lista los numeros que cumplan la condicion de ser multiplo de 2 ,  5 y de 7.Finalmente mostrar el tamaño de esa lista.
+#9. opcion 8 llamar a una funcion que devuelva el mayor de 2 numeros ingresados por teclado.
+#10. opcion 9 Salir. 
+
+# Función para saludar y pedir datos personales
+def saludar():
+    nombre = input("Ingrese su nombre: ")
+    apellido = input("Ingrese su apellido: ")
+    correo_electroncio = input("Ingrese su correo electrónico: ")
+    print("¡Hola {}, bienvenido!".format(nombre))
+    return {'nombre': nombre, 'edad': apellido, 'correo': correo_electroncio, 'cursos': []}
+
+# Función para realizar una operación matemática con dos números ingresados por el usuario
+def operacion_matematica():
+    num1 = float(input("Ingrese el primer número: "))
+    num2 = float(input("Ingrese el segundo número: "))
+    operador = input("Ingrese el operador (+, -): ")
+    if operador == '+':
+        resultado = num1 + num2
+    elif operador == '-':
+        resultado = num1 - num2
+    else:
+        resultado = "Operador no válido"
+    print("El resultado es:", resultado)
+
+# Función para agregar un alumno a la lista
+def calcular_promedio(notas):
+    return sum(notas) / len(notas)
+
+# Definir la lista principal
+lista_personas = []
+########################################################################
+
+# Función para agregar una nueva persona
+def agregar_persona():
+    nombre = input("Ingrese el nombre de la persona: ")
+    edad = int(input("Ingrese la edad de la persona: "))
+    correo = input("Ingrese el correo de la persona: ")
+    
+    cursos = []
+    while True:
+        nombre_curso = input("Ingrese el nombre del curso o escriba 'fin' para terminar: ")
+        if nombre_curso.lower() == 'fin':
+            break
+        notas_str = input("Ingrese las notas del curso separadas por espacios: ")
+        notas = list(map(int, notas_str.split()))
+        cursos.append({"nombre_curso": nombre_curso, "notas": notas})
+    
+    # Calcular promedio de notas y agregar a lista de notas finales
+    notas_finales = []
+    for curso in cursos:
+        notas = curso["notas"]
+        promedio = calcular_promedio(notas)
+        notas_finales.append(promedio)
+    
+    # Crear diccionario de la persona con notas finales
+    nueva_persona = {
+        "nombre": nombre,
+        "edad": edad,
+        "correo": correo,
+        "cursos": cursos,
+        "notas_finales": notas_finales
+    }
+    
+    # Agregar persona a la lista
+    lista_personas.append(nueva_persona)
+
+########################################################################
+
+# Función para calcular el promedio de notas
+# Imprimir la lista de personas para verificar
+print(lista_personas)
+
+# Función para mostrar listado de alumnos aprobados
+def mostrar_aprobados(lista_alumnos):
+    print("Listado de alumnos aprobados:")
+    for alumno in lista_alumnos:
+        if alumno['promedio'] >= 10:  # Suponiendo que 10 es la nota mínima para aprobar
+            print(alumno['nombre'])
+
+# Función para mostrar listado de alumnos desaprobados
+def mostrar_desaprobados(lista_alumnos):
+    print("Listado de alumnos desaprobados:")
+    for alumno in lista_alumnos:
+        if alumno['promedio'] < 10:  # Suponiendo que 10 es la nota mínima para aprobar
+            print(alumno['nombre'])
+
+# Función para generar una lista de números múltiplos de 2, 5 y 7
+def generar_lista_multiplos():
+    lista_multiplos = []
+    for i in range(1, 10**10):
+        if i % 2 == 0 and i % 5 == 0 and i % 7 == 0:
+            lista_multiplos.append(i)
+    print("Tamaño de la lista de múltiplos:", len(lista_multiplos))
+
+# Función para obtener el mayor de dos números ingresados por el usuario
+def obtener_mayor():
+    num1 = float(input("Ingrese el primer número: "))
+    num2 = float(input("Ingrese el segundo número: "))
+    mayor = max(num1, num2)
+    print("El número mayor es:", mayor)
+
+# Menú principal
+def menu():
+    alumnos = []
+    while True:
+        print("\nMENU")
+        print("1. Saludar y pedir datos personales")
+        print("2. Realizar una operación matemática")
+        print("3. Agregar alumno a lista")
+        print("4. Calcular promedio de notas")
+        print("5. Mostrar listado de alumnos aprobados")
+        print("6. Mostrar listado de alumnos desaprobados")
+        print("7. Generar lista de múltiplos")
+        print("8. Obtener el mayor de dos números")
+        print("9. Salir")
+
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == '1':
+            saludar()
+        elif opcion == '2':
+            operacion_matematica()
+        elif opcion == '3':
+            agregar_persona()
+        elif opcion == '4':
+            agregar_persona()
+        elif opcion == '5':
+            mostrar_aprobados(alumnos)
+        elif opcion == '6':
+            mostrar_desaprobados(alumnos)
+        elif opcion == '7':
+            generar_lista_multiplos()
+        elif opcion == '8':
+            obtener_mayor()
+        elif opcion == '9':
+            break
+        else:
+            print("Opción no válida. Por favor, seleccione una opción del 1 al 9.")
+
+# Ejecutar el menú
+menu()
+
